@@ -4,25 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using automapper_test.Model;
 using Microsoft.AspNetCore.Mvc;
+using automapper_test.Entity;
+using AutoMapper;
 
 namespace automapper_test.Controllers
 {
   [Route("api/[controller]")]
   public class PersonController : Controller
   {
-    // GET api/values
-    [HttpGet]
-    public IEnumerable<string> Get()
+    IMapper Mapper;
+    public PersonController(IMapper _mapper)
     {
-      return new string[] { "value1", "value2" };
+      Mapper = _mapper;
     }
-
-    // GET api/values/5
-    [HttpGet("{id}")]
-    public string Get(int id)
-    {
-      return "value";
-    }
+    static Person LastPerson;
 
     // POST api/values
     [HttpPost]
@@ -30,26 +25,15 @@ namespace automapper_test.Controllers
     {
       if (pm == null)
       {
-        return BadRequest();
+        return BadRequest(PersonController.LastPerson);
       }
       else if (ModelState.IsValid)
       {
-          pm.FirstName = "wtf";
-        return Ok(pm);
+        // fixme: this code should go in a Repo
+        PersonController.LastPerson = Mapper.Map<Person>(pm);
+        return Ok(PersonController.LastPerson);
       }
-      return BadRequest();
-    }
-
-    // PUT api/values/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody]string value)
-    {
-    }
-
-    // DELETE api/values/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
-    {
+      return BadRequest(PersonController.LastPerson);
     }
   }
 }

@@ -5,8 +5,8 @@ namespace automapper_test.Model
 {
   public class PersonViewModel
   {
-    [Required]
-    public bool Test { get; set; }
+    // [Required]
+    // public bool Test { get; set; }
     [Required]
     public string FirstName { get; set; }
     [Required]
