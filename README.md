@@ -1,0 +1,1 @@
+a super simple [AutoMapper](https://github.com/AutoMapper/AutoMapper) example using the [Dependency Injection Extension](https://github.com/AutoMapper/AutoMapper.Extensions.Microsoft.DependencyInjection)
